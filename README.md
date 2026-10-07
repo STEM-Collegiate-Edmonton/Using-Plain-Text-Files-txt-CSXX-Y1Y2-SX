@@ -1,27 +1,26 @@
 # Using Plain Text Files (`.txt`)
 
+## Basic Premise
+
 A diagnostic computer has collected rows of numerical data. Each line of the input file represents one set of readings.
 
-Your job is to create an algorithm that reads the file one line at a time, processes the numbers on that line, and produces a diagnostic checksum. This follows the lesson's read-process-write cycle: read data from a file, process it in Python, and then write the results to a file.
+Create a Python program that reads the provided text file one line at a time, processes the numbers on each line, and produces a diagnostic checksum.
 
-### The Algorithm
+For each line:
 
-For each line of the input file:
+1. Remove unnecessary whitespace.
+2. Separate the numbers.
+3. Convert the values into integers.
+4. Find the largest and smallest value.
+5. Subtract the smallest value from the largest value.
+6. Add that difference to a running checksum.
+7. Write the difference to `checksum_results.txt`.
 
-1. Remove the newline or unnecessary whitespace.
-2. Separate the numbers using the spaces between them.
-3. Convert the values from strings into integers.
-4. Find the largest number on the line.
-5. Find the smallest number on the line.
-6. Subtract the smallest number from the largest number. This is the **difference** for that line.
-7. Add the difference to a running **checksum**.
-8. Write the difference for that line to `checksum_results.txt`.
+After every line has been processed, write the final checksum at the bottom of the results file.
 
-After every line has been processed, write the final checksum as the last line of `checksum_results.txt`.
+### Practice Input
 
-### Sample Input
-
-Save the following as `checksum_sample.txt`:
+Use `checksum_practice_input.txt` while developing your program:
 
 ```text
 12 7 19 4
@@ -68,33 +67,91 @@ Therefore, `checksum_results.txt` should contain:
 Checksum: 46
 ```
 
-### Full Challenge Input
+Once your program works with the practice file, change it to process the provided `checksum_input.txt` file.
 
-Once your algorithm works correctly with the sample, use the input from `checksum_input.txt` as your full input. You might notice that your real input is a little longer and uses bigger numbers. If your algorithm does not work for the sample or uses only hardcoded numbers for the loops, it is unlikely you will be able to complete the full input.
+## Basic File Structure
 
-### Required File Structure
+Your starter folder will contain:
 
 ```text
-diagnostic_checksum/
-│
+basic/
 ├── main.py
 ├── checksum_practice_input.txt
-├── checksum_input.txt
-└── checksum_results.txt
+└── checksum_input.txt
 ```
 
-`checksum_results.txt` should be created or overwritten by the program when it runs.
+After running the finished program, it should also contain `checksum_results.txt`.
 
-## Using Plain Text Files (`.txt`) — 20 Marks
+## Basic Requirements
+
+* [ ] Open the provided input file in read mode and process the file one line at a time.
+* [ ] Remove unnecessary whitespace, separate the numbers on each line, and convert the values into integers.
+* [ ] Find the largest and smallest value on each line and calculate their difference.
+* [ ] Maintain a running checksum by adding together all of the calculated differences.
+* [ ] Create or overwrite `checksum_results.txt` and write each line's difference on its own line.
+* [ ] Write the final checksum at the bottom of `checksum_results.txt` using the format `Checksum: number`.
+* [ ] Verify your algorithm using `checksum_practice_input.txt`, then use the same algorithm to process the full `checksum_input.txt` file.
+
+> Fully completing the Basic Requirements earns **16/20 marks, or 80%**.
+
+## Basic Assessment — 16 Marks
 
 | Assessment Item | Criteria | Marks |
 |---|---|---:|
-| ☐ Reading the Input File | Opens the provided input file in read mode and processes its contents one line at a time. | 2 |
-| ☐ Processing Each Line | Removes unnecessary whitespace, separates the values on each line, and converts each value from a string into an integer. | 4 |
-| ☐ Calculating Line Differences | Correctly identifies the largest and smallest value on every line and calculates the difference between them. | 4 |
-| ☐ Calculating the Checksum | Maintains a running total of all line differences and produces the correct final checksum. | 3 |
-| ☐ Writing Line Results | Creates or overwrites `checksum_results.txt` and writes each calculated line difference on its own line. | 3 |
-| ☐ Writing the Final Result | Writes the final checksum to the end of `checksum_results.txt` in the required format. | 2 |
-| ☐ Sample Verification | When run using `checksum_sample.txt`, produces the four expected differences and a checksum of `46`. | 1 |
-| ☐ File Structure | Uses the required `main.py`, input `.txt` file, and `checksum_results.txt` file structure. | 1 |
-|  | **Total** | **20** |
+| Reading the File | Opens the provided text file and processes its contents line by line. | 2 |
+| Processing Each Line | Correctly cleans, separates, and converts the values on each line into integers. | 3 |
+| Calculating Differences | Correctly finds the largest and smallest values and calculates the difference for every line. | 4 |
+| Calculating the Checksum | Correctly maintains a running total of all calculated differences. | 3 |
+| Writing Results | Creates `checksum_results.txt` and writes every calculated difference on its own line. | 2 |
+| Final Checksum | Writes the correctly calculated final checksum at the bottom of the results file. | 2 |
+|  | **Total** | **16** |
+
+## Advanced Premise
+
+Extend your Basic program so that it can process a text file selected by the user rather than always using a predetermined filename.
+
+The program should ask the user which file they want to process, safely open that file, validate its contents, and create a results file based on the selected filename.
+
+You should be able to begin by copying your completed Basic `main.py` into the Advanced folder and modifying it.
+
+For example, if the user enters
+
+```text
+sensor_data.txt
+```
+
+the program should read `sensor_data.txt` and create `sensor_data_results.txt`.
+
+
+The checksum algorithm itself should remain the same.
+
+## Advanced File Structure
+
+Your starter folder will contain:
+
+```text
+advanced/
+├── main.py
+├── checksum_practice_input.txt
+├── checksum_input.txt
+└── sensor_data.txt
+```
+
+## Advanced Requirements
+
+* [ ] Use `input()` to ask the user for the name of the `.txt` file they want to process.
+* [ ] Use the same checksum algorithm from the Basic activity to process the selected file.
+* [ ] Automatically create an output filename based on the input filename, such as `sensor_data_results.txt`.
+* [ ] Validate each line before processing it so that non-numeric data is not treated as a valid row of readings.
+* [ ] Use error handling so problems such as a missing file or invalid numeric data do not cause the program to crash.
+* [ ] When invalid input or a file error occurs, clearly explain the problem and allow the user to correct it.
+
+## Advanced Assessment — 4 Marks
+
+| Assessment Item | Criteria | Marks |
+|---|---|---:|
+| User-Selected File | Accepts a filename from the user and correctly processes the selected text file. | 1 |
+| Dynamic Output File | Creates an appropriately named results file based on the selected input filename. | 1 |
+| Input Validation | Detects invalid rows instead of attempting to process non-numeric data. | 1 |
+| Error Handling | Handles missing files and invalid data without crashing and allows the user to correct the problem. | 1 |
+|  | **Total** | **4** |
